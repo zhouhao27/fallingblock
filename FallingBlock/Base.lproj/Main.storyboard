@@ -1,0 +1,70 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="15505" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="BV1-FR-VrT">
+    <device id="retina6_1" orientation="landscape" appearance="light"/>
+    <dependencies>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="15510"/>
+        <capability name="Safe area layout guides" minToolsVersion="9.0"/>
+        <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
+    </dependencies>
+    <scenes>
+        <!--Game View Controller-->
+        <scene sceneID="tXr-a1-R10">
+            <objects>
+                <viewController id="BV1-FR-VrT" customClass="GameViewController" customModule="FallingBlock" customModuleProvider="target" sceneMemberID="viewController">
+                    <view key="view" multipleTouchEnabled="YES" contentMode="scaleToFill" id="3se-qz-xqx">
+                        <rect key="frame" x="0.0" y="0.0" width="896" height="414"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="abh-X1-GQp" customClass="SKView">
+                                <rect key="frame" x="74" y="40" width="748" height="200"/>
+                                <color key="backgroundColor" red="0.35294117650000001" green="0.7843137255" blue="0.98039215690000003" alpha="0.25112786091549294" colorSpace="custom" customColorSpace="sRGB"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="200" id="flZ-lZ-aQm"/>
+                                </constraints>
+                            </view>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="i76-Ig-twk">
+                                <rect key="frame" x="74" y="264" width="67" height="50"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="50" id="BRo-VW-mSc"/>
+                                </constraints>
+                                <fontDescription key="fontDescription" type="system" pointSize="32"/>
+                                <state key="normal" title="Start"/>
+                                <connections>
+                                    <action selector="onStart:" destination="BV1-FR-VrT" eventType="touchUpInside" id="Cwm-2t-iEO"/>
+                                </connections>
+                            </button>
+                            <switch opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" contentHorizontalAlignment="center" contentVerticalAlignment="center" on="YES" translatesAutoresizingMaskIntoConstraints="NO" id="tBt-gq-Qda">
+                                <rect key="frame" x="773" y="274" width="51" height="31"/>
+                            </switch>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Sheet/Block" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="JOY-bS-FV5">
+                                <rect key="frame" x="628" y="272" width="129" height="33"/>
+                                <fontDescription key="fontDescription" name="Avenir-Book" family="Avenir" pointSize="24"/>
+                                <nil key="textColor"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                        </subviews>
+                        <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
+                        <constraints>
+                            <constraint firstItem="tBt-gq-Qda" firstAttribute="leading" secondItem="JOY-bS-FV5" secondAttribute="trailing" constant="16" id="9X4-5i-doe"/>
+                            <constraint firstItem="JOY-bS-FV5" firstAttribute="top" secondItem="abh-X1-GQp" secondAttribute="bottom" constant="32" id="K1A-Aa-CQo"/>
+                            <constraint firstItem="abh-X1-GQp" firstAttribute="top" secondItem="4qk-I5-YsI" secondAttribute="top" constant="40" id="Syq-8x-h57"/>
+                            <constraint firstItem="i76-Ig-twk" firstAttribute="top" secondItem="abh-X1-GQp" secondAttribute="bottom" constant="24" id="UnN-ye-1Vt"/>
+                            <constraint firstItem="4qk-I5-YsI" firstAttribute="trailing" secondItem="tBt-gq-Qda" secondAttribute="trailing" constant="30" id="UoM-Xk-3gD"/>
+                            <constraint firstItem="4qk-I5-YsI" firstAttribute="trailing" secondItem="abh-X1-GQp" secondAttribute="trailing" constant="30" id="Vcp-LR-jsD"/>
+                            <constraint firstItem="i76-Ig-twk" firstAttribute="leading" secondItem="4qk-I5-YsI" secondAttribute="leading" constant="30" id="gjk-SE-kNa"/>
+                            <constraint firstItem="tBt-gq-Qda" firstAttribute="top" secondItem="abh-X1-GQp" secondAttribute="bottom" constant="34" id="kBn-ZQ-KOs"/>
+                            <constraint firstItem="abh-X1-GQp" firstAttribute="leading" secondItem="4qk-I5-YsI" secondAttribute="leading" constant="30" id="xaN-M8-iQF"/>
+                        </constraints>
+                        <viewLayoutGuide key="safeArea" id="4qk-I5-YsI"/>
+                    </view>
+                    <connections>
+                        <outlet property="skView" destination="abh-X1-GQp" id="P5f-Nl-ICm"/>
+                        <outlet property="switchMode" destination="tBt-gq-Qda" id="I2n-Gv-gJc"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="SZV-WD-TEh" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="136.60714285714286" y="114.49275362318842"/>
+        </scene>
+    </scenes>
+</document>
