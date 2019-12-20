@@ -123,8 +123,10 @@ class GameScene: SKScene {
     let node = SKShapeNode(rectOf: CGSize(width: w, height: h),cornerRadius: w / 4.0)
     node.position = CGPoint(x: x, y: frame.size.height + h / 2)
     node.fillColor = color
-    node.strokeColor = color
+    node.strokeColor = .clear
 //    node.lineWidth = 3
+//    node.strokeShader = createColorEmboss()
+//    node.fillShader = createColorEmboss()
     
     self.addChild(node)
     
@@ -163,15 +165,6 @@ class GameScene: SKScene {
     clef.setScale(0.6)
     clef.position = CGPoint(x: margin + 30, y: 105)
     addChild(clef)
-    
-    // add notes
-//    addNote(line: 2, name: "note0")
-//    addNote(line: 3, name: "note0")
-//    addNote(line: 4, name: "note0")
-//
-//    addNote(line: -1, name: "note0", delay: 1)
-//    addNote(line: 0, name: "note0", delay: 1)
-//    addNote(line: 1, name: "note0", delay: 1)
   }
   
   // line 0 - 9
@@ -204,12 +197,16 @@ class GameScene: SKScene {
     let t = TimeInterval(total_travel_distance / speed)
     
     let delayAction = SKAction.wait(forDuration: delay)
-    let moveAction = SKAction.moveBy(x: -total_travel_distance, y: 0, duration: t)
+//    let moveAction = SKAction.moveBy(x: -total_travel_distance, y: 0, duration: t)
+    let moveAction = SKAction.moveBy(x: -travel_before_timeline, y: 0, duration: 5)
+    let moveAction2 = SKAction.moveBy(x: -60, y: 0, duration: t - 5)
+    let alphaAction = SKAction.fadeAlpha(to: 0.2, duration: t - 5)
     
     let sequence = SKAction.sequence([
       delayAction,
       SKAction.unhide(),
       moveAction,
+      SKAction.group([alphaAction,moveAction2]),
       SKAction.removeFromParent()
     ])
     node.run(sequence)
@@ -248,6 +245,30 @@ class GameScene: SKScene {
     }
   }
   
+  func createColorEmboss() -> SKShader {
+    let source = "void main() {" +
+        "vec4 current_color = SKDefaultShading();" +
+        "if (current_color.a > 0.0) {" +
+            "vec2 pixel_size = 1.0 / a_size;" +
+            "vec4 new_color = current_color;" +
+            "new_color += texture2D(u_texture, v_tex_coord + pixel_size) * u_strength;" +
+            "new_color -= texture2D(u_texture, v_tex_coord - pixel_size) * u_strength;" +
+            "gl_FragColor = vec4(new_color.rgb, 1) * current_color.a * v_color_mix.a;" +
+        "} else {" +
+            "gl_FragColor = current_color;" +
+        "}" +
+    "}"
+    let shader = SKShader(source: source, uniforms: [SKUniform(name: "u_strength", float: 1)])
+    shader.attributes = [SKAttribute(name: "a_size", type: .vectorFloat2)]
+    return shader
+  
+//    let shader = SKShader(fileNamed: "emboss")
+//    shader.attributes = [SKAttribute(name: "a_size", type: .vectorFloat2)]
+//    shader.uniforms = [SKUniform(name: "u_strength", float: 1)]
+//
+//    return shader
+  }
+
   private func startTimer() {
     currentStartTime = Date()
   }
