@@ -39,7 +39,8 @@ class GameScene: SKScene {
   private let margin: CGFloat = 20
   private let space: CGFloat = 20
   private let timeLineX: CGFloat = 160
-    
+  private let blockTravellingTime: TimeInterval = 2.0
+  
   // the pointer index in notes array
   var currentNoteIndex = 0
   var playingNotes = [Note]()
@@ -119,13 +120,15 @@ class GameScene: SKScene {
     // calculate x based on pitch (roughly)
     let x = CGFloat(note.pitch - 50) * 16
     
-    let node = SKShapeNode(rectOf: CGSize(width: w, height: h),cornerRadius: 2.0)
+    let node = SKShapeNode(rectOf: CGSize(width: w, height: h),cornerRadius: w / 4.0)
     node.position = CGPoint(x: x, y: frame.size.height + h / 2)
     node.fillColor = color
     node.strokeColor = color
+//    node.lineWidth = 3
+    
     self.addChild(node)
     
-    let speed = Double(frame.size.height / 1.8)
+    let speed = Double(frame.size.height) / blockTravellingTime
     let t = (Double(frame.size.height) + Double(h)) / speed
     
     // TODO: delay
